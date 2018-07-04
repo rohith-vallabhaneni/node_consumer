@@ -1,0 +1,26 @@
+{
+  "name": "pact-node-consumer",
+  "version": "1.1.0",
+  "description": "Sample Pact JS Consumer",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --timeout 5000 test/consumer.spec.js",
+    "publish_pact": "node test/publish.js",
+    "start": "node index.js"
+  },
+  "author": "rohith.vallabhaneni@ggktech.com",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.0",
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "superagent": "^3.6.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^3.5.3",
+    "pact": "^2.7.0",
+    "path": "^0.12.7"
+  }
+}

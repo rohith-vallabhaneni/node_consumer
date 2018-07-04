@@ -1,0 +1,44 @@
+customer: platform
+vertical: cdc
+
+# Using a standard node image
+# Note: A minimal image such as :alpine works for building
+#       but has issues with executing the test steps
+from: node:latest
+
+# see ./scripts/build.sh for details
+build: rm -rf node_modules && sh ./scripts/build.sh
+multistage: true
+services:
+- id: nodeconsumerexample
+  type: node9
+  copy:
+  # adding required files
+  - index.js /dist/index.js
+  - package.json /dist/package.json
+  - consumer.js /dist/consumer.js
+  # all production node modules required for server-side-rendering
+  - node_modules /dist/node_modules
+  exec: cd dist && npm start
+  check: true
+  # These are the defaults and
+  # needs to be enhanced for most services
+  resources:
+    requests:
+      memory: "600Mi"
+      cpu: "200m"
+    limits:
+      memory: "2000Mi"
+      cpu: "1000m"
+
+# Specifies the files executed for tests on each environment. Need to be executable 'chmod +x'
+tests:
+ - stage: pp
+   test: chmod 777 scripts/tests.sh && ./scripts/tests.sh
+
+watchers:
+ - navyateja.otturu@ggktech.com
+ - rohith.vallabhaneni@ggktech.com
+
+slack-channels:
+ - '@peng-cdc'
