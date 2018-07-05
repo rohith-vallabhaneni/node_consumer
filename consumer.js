@@ -10,6 +10,20 @@ server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({
   extended: true
 }))
+
+server.get('/', (req, res) => {
+  res.json({
+    '/user': 'Gives the user details'
+  })
+})
+
+server.get('/user', (req, res) => {
+  res.json({
+    id: 1283,
+    name: 'Rohith Vallabhaneni'
+  })
+})
+
 server.use((req, res, next) => {
   res.header('Content-Type', 'application/json; charset=utf-8')
   next()
